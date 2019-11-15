@@ -1,0 +1,20 @@
+Package: wateRshedTools
+Type: Package
+Title: Watershed Tools For Datetime Data
+Version: 0.1.0
+Author: Ryan Peek
+Maintainer: The package maintainer <rapeek@ucdavis.edu>
+Description: This package is largely experimental and has a few useful 
+    utility functions for working with hydrologic data. Adding water 
+    year, water year day using a given date or datetime column. 
+    Additional functions for converting from CFS to CMS and downloading
+    USGS flow data.
+License: CC4
+Encoding: UTF-8
+LazyData: true
+URL: https://github.com/ryanpeek/wateRshedTools
+BugReports: https://github.com/ryanpeek/wateRshedTools/issues
+RoxygenNote: 7.0.0
+Imports:
+Depends:
+Suggests:
