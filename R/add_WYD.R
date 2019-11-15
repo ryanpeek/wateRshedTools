@@ -7,9 +7,11 @@
 #'
 #' Here's the specific details:
 #'
-#' @param df a dataframe
-#' @param datecolumn requires a POSIXct formatted date or datetime column
+#' @param dates a dataframe
+#' @param datecolumn requires a POSIXct formatted date or datetime
+#'
 #' @export
+#'
 add_WYD <- function(df, datecolumn){
   datecolumn=datecolumn
   df["DOY"] <- as.integer(sapply(df[,c(datecolumn)], yday))

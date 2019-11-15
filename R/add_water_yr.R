@@ -1,6 +1,6 @@
 #' Add Water Year
 #'
-#' This function takes a \emph[date] column and
+#' This function takes a \emph{date} column and
 #' returns the Water Year (from Oct 1 to Sep 30).
 #' Can specify the starting month for a given water year.
 #'

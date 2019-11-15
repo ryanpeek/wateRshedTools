@@ -4,7 +4,7 @@
 #'
 #' It doesn't require any specific parameters
 #'
-#' @export
+#' @param ... empty space
 #'
-
+#' @export
 owin <- function(...) if(Sys.info()[1]=="Windows") shell(cmd="explorer .",intern=F,wait=F)

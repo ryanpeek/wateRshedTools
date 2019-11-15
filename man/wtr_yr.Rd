@@ -12,7 +12,7 @@ wtr_yr(dates, start_month = 10)
 \item{start_month}{defaults to Oct 1, the starting month}
 }
 \description{
-This function takes a \emph[date] column and
+This function takes a \emph{date} column and
 returns the Water Year (from Oct 1 to Sep 30).
 Can specify the starting month for a given water year.
 }

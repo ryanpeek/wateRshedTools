@@ -6,6 +6,9 @@
 \usage{
 owin(...)
 }
+\arguments{
+\item{...}{empty space}
+}
 \description{
 This is a helper function to open current project directory
 }

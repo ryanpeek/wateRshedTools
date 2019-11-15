@@ -4,6 +4,7 @@
 #'
 #' It doesn't require any specific parameters
 #'
-#' @export
+#' @param ... empty space
 #'
+#' @export
 omac <- function(...) if(Sys.info()[1]=="Darwin") system("open .")

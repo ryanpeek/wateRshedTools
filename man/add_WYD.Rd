@@ -7,9 +7,9 @@
 add_WYD(df, datecolumn)
 }
 \arguments{
-\item{df}{a dataframe}
+\item{datecolumn}{requires a POSIXct formatted date or datetime}
 
-\item{datecolumn}{requires a POSIXct formatted date or datetime column}
+\item{dates}{a dataframe}
 }
 \description{
 This function takes a POSIXct formatted column name and
