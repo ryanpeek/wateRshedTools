@@ -9,12 +9,14 @@ Description: This package is largely experimental and has a few useful
     year, water year day using a given date or datetime column. 
     Additional functions for converting from CFS to CMS and downloading
     USGS flow data.
-License: CC4
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/ryanpeek/wateRshedTools
 BugReports: https://github.com/ryanpeek/wateRshedTools/issues
 RoxygenNote: 7.0.0
 Imports:
+    lubridate
 Depends:
 Suggests:
+    dplyr
