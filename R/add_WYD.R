@@ -5,10 +5,27 @@
 #' Day of Water Year (starting Oct 1 and ending Sep 30),
 #' and Water Year (from Oct 1 to Sep 30).
 #'
-#' Here's the specific details:
+#' This function should be used as follows:
+#' Reassign or create the dataframe you would like to add new Water Year columns to. This function will generate three new columns, \bold{DOY} (Day of Year), \bold{WY} (Water Year, starting Oct 1), and \bold{DOWY} (Day of Water Year, starting Oct 1). It relies on \code{dowy} and \code{wt_yr} functions, as well as the \code{lubridate} package.
+#'
+#' @examples
+#'
+#' # get data
+#' airq <- datasets::airquality
+#' # add a year (this data from 1973)
+#' airq$Year <- 1973
+#' # make a date col
+#' airq$date <- with(airq, paste0(year, "-", Month, "-", Day))
+#' head(airq)
+#' # now format into POSIX with lubridate
+#' require(lubridate)
+#' airq$date <- ymd(airq$date)
+#'
+#' # now run function:
+#' airq <- add_WYD(airq, "date")
 #'
 #' @param dates a dataframe
-#' @param datecolumn requires a POSIXct formatted date or datetime
+#' @param datecolumn quoted, requires a POSIXct formatted date or datetime
 #'
 #' @export
 #'
