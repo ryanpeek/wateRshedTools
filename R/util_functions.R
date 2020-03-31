@@ -84,6 +84,7 @@ new.folders<-function(all=TRUE){
 }
 
 #' list package functions: requires unquoted package name
+#' the package must be first loaded into the envivronment
 #' @param package_name an unquoted package name
 #' @export
 ls_pkg_functions <-function(package_name, all.names = FALSE, pattern) {
