@@ -6,6 +6,9 @@
 \usage{
 ls_pkg_functions(package, all.names = FALSE, pattern)
 }
+\arguments{
+\item{package}{an unquoted package name}
+}
 \description{
 list package functions: requires unquoted package name
 }

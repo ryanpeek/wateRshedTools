@@ -6,6 +6,9 @@
 \usage{
 cfs_cms(x, cfs = TRUE)
 }
+\arguments{
+\item{x}{a continuous numeric column}
+}
 \description{
 cfs to cms or back
 }
