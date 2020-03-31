@@ -1,6 +1,6 @@
 ## README
 
-This is a custom package of random scripts used for watershed analysis. It is certainly likely to break, and it may even work. To which degree depends on your system and how much chocolate you've consumed. I make no guarantees to support or address anything contained herein. :)
+This is a custom package of random scripts mainly used for watershed analysis. It is certainly likely to break, but it may work! To which degree depends on your system and how much chocolate you've consumed. I make no guarantees to support or address anything contained herein. This is largely a personal "play" package I'm using to learn more about package development. It will likely take the place of my `.Rprofile` script in the near future.
 
 ### To Install
 
