@@ -2,12 +2,10 @@
 % Please edit documentation in R/util_functions.R
 \name{Pause}
 \alias{Pause}
-\title{Function to add a pause or break in script or function
- @export}
+\title{Function to add a pause or break in script or function}
 \usage{
 Pause()
 }
 \description{
 Function to add a pause or break in script or function
- @export
 }

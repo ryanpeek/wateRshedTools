@@ -7,5 +7,5 @@
 ls_pkg_functions(package, all.names = FALSE, pattern)
 }
 \description{
-@export
+list package functions: requires unquoted package name
 }

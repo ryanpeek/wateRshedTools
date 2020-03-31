@@ -2,12 +2,10 @@
 % Please edit documentation in R/util_functions.R
 \name{repath}
 \alias{repath}
-\title{Function to replace / in path to \\ and copy to clipboard
- @export}
+\title{Function to replace / in path to \\ and copy to clipboard}
 \usage{
 repath()
 }
 \description{
 Function to replace / in path to \\ and copy to clipboard
- @export
 }

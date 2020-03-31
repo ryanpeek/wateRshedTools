@@ -8,6 +8,8 @@ CV(x, na.rm = TRUE)
 }
 \arguments{
 \item{x}{a continuous numeric column}
+
+\item{package}{an unquoted package name}
 }
 \description{
 A suite of functions that may or may not be useful.

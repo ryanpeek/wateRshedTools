@@ -2,12 +2,10 @@
 % Please edit documentation in R/util_functions.R
 \name{new.folders}
 \alias{new.folders}
-\title{make new proj folders
- @export}
+\title{make new proj folders}
 \usage{
 new.folders(all = TRUE)
 }
 \description{
 make new proj folders
- @export
 }

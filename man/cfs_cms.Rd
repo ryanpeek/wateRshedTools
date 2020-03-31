@@ -2,12 +2,10 @@
 % Please edit documentation in R/util_functions.R
 \name{cfs_cms}
 \alias{cfs_cms}
-\title{cfs to cms or back
- @export}
+\title{cfs to cms or back}
 \usage{
 cfs_cms(x, cfs = TRUE)
 }
 \description{
 cfs to cms or back
- @export
 }
