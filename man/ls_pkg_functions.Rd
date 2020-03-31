@@ -2,7 +2,8 @@
 % Please edit documentation in R/util_functions.R
 \name{ls_pkg_functions}
 \alias{ls_pkg_functions}
-\title{list package functions: requires unquoted package name}
+\title{list package functions: requires unquoted package name
+the package must be first loaded into the envivronment}
 \usage{
 ls_pkg_functions(package_name, all.names = FALSE, pattern)
 }
@@ -11,4 +12,5 @@ ls_pkg_functions(package_name, all.names = FALSE, pattern)
 }
 \description{
 list package functions: requires unquoted package name
+the package must be first loaded into the envivronment
 }
