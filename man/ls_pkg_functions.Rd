@@ -4,10 +4,10 @@
 \alias{ls_pkg_functions}
 \title{list package functions: requires unquoted package name}
 \usage{
-ls_pkg_functions(package, all.names = FALSE, pattern)
+ls_pkg_functions(package_name, all.names = FALSE, pattern)
 }
 \arguments{
-\item{package}{an unquoted package name}
+\item{package_name}{an unquoted package name}
 }
 \description{
 list package functions: requires unquoted package name
