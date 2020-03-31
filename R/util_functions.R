@@ -5,8 +5,6 @@
 #' Details: As above
 #'
 #' @param x a continuous numeric column
-#' @param package an unquoted package name
-#'
 #'
 #' @export
 CV <- function(x, na.rm=TRUE){
@@ -17,7 +15,10 @@ CV <- function(x, na.rm=TRUE){
   }
 }
 
+
 #' Function to replace / in path to \\ and copy to clipboard
+#'
+#' @export
 repath <- function() {
   cat('Paste file path and hit RETURN twice')
   x <- scan(what = "")
@@ -26,7 +27,10 @@ repath <- function() {
   cat('Here\'s your de-windowsified path. (It\'s also on the clipboard.)\n', xa, '\n')
 }
 
+
 #' Function to add a pause or break in script or function
+#'
+#' @export
 Pause <- function () {
   cat("Hit <enter> to continue...")
   readline()
@@ -34,6 +38,10 @@ Pause <- function () {
 }
 
 #' cfs to cms or back
+#'
+#' @param x a continuous numeric column
+#'
+#' @export
 cfs_cms <- function(x, cfs=TRUE){
   if(cfs){
     x * 0.028316847 # cfs * cms
@@ -43,6 +51,7 @@ cfs_cms <- function(x, cfs=TRUE){
 }
 
 #' make new proj folders
+#' @export
 new.folders<-function(all=TRUE){
   if(all){
     dir.create(path="data",showWarnings=T) # create data folder
@@ -78,6 +87,8 @@ new.folders<-function(all=TRUE){
 }
 
 #' list package functions: requires unquoted package name
+#' @param package an unquoted package name
+#' @export
 ls_pkg_functions <-function(package, all.names = FALSE, pattern) {
   package <- deparse(substitute(package))
   ls(
