@@ -6,7 +6,6 @@
 #' This function can download data for a single station or
 #' a list of multiple stations at once using \strong{purrr}.
 #'
-#' Details
 #' Commonly used sensors include:
 #'  \itemize{
 #'    \item 1  stage (ft)
@@ -22,12 +21,12 @@
 #'    \item 25 water temp
 #'    \item 4  air temp
 #'    }
-#'
-#'#' @seealso
-#' - To see a list of Real-Time Stations: \url{http://cdec.water.ca.gov/misc/realStations.html}
-#' - To see a list of Daily Stations: \url{http://cdec.water.ca.gov/misc/dailyStations.html}
-#' - To see a list of sensors:  \url{http://cdec.water.ca.gov/misc/senslist.html}
-#'
+#' @seealso
+#' \itemize{
+#'   \item To see a list of Real-Time Stations: \url{http://cdec.water.ca.gov/misc/realStations.html}
+#'   \item To see a list of Daily Stations: \url{http://cdec.water.ca.gov/misc/dailyStations.html}
+#'   \item To see a list of sensors:  \url{http://cdec.water.ca.gov/misc/senslist.html}
+#'   }
 #' @param station # Station is 3 letter abbreviation (see \url{https://info.water.ca.gov/staMeta.html})
 #' @param sensor # Sensor is number.
 #' @param duration # Duration is E=event, D=Daily, H=Hourly.
