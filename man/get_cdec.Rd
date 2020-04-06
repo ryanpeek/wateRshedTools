@@ -54,7 +54,8 @@ dur  <- c("H") # hourly here, try this with "H" "D" or "E"
 # combine into one argument list (note, order matches function order)
 varList <- list(stations, sens, dur, startT, endT)
 # now run function:
-# use PURRR package to map each argument in parallel, then combine
+# library(dplyr); library(purrr); library(magrittr)
+# now map each argument in parallel, then combine
 cdec_hrly <- pmap(varList, get_cdec) \%>\% bind_rows()
 # check records by station
 table(cdec_hrly$station_id)
