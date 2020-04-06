@@ -1,34 +1,63 @@
 #' Get CDEC Data
 #'
-#' This function takes a \emph{station} and \emph{sensor} along with a \emph{duration} and \emph{start} and \emph{end} date.
+#' This function takes a \emph{station} and \emph{sensor} along
+#' with a \emph{duration} and \emph{start} and \emph{end} date.
 #' It returns associated CDEC sensor data in a dataframe.
-#'
-#' - To see a list of Real-Time Stations: http://cdec.water.ca.gov/misc/realStations.html
-#' - To see a list of Daily Stations: http://cdec.water.ca.gov/misc/dailyStations.html
-#' - To see a list of sensors:  http://cdec.water.ca.gov/misc/senslist.html
+#' This function can download data for a single station or
+#' a list of multiple stations at once using \strong{purrr}.
 #'
 #' Details
-#'
 #' Commonly used sensors include:
+#'  \itemize{
+#'    \item 1  stage (ft)
+#'    \item 20 flow (cfs)
+#'    \item 2  rain accum (in)
+#'    \item 16 precip tippingbucket (in)
+#'    \item 45 ppt incremental (in)
+#'    \item 3  snow water content (in)
+#'    \item 18 snow depth (in)
+#'    \item 6  reservoir elevation (ft)
+#'    \item 15 reservoir storage (ac-ft)
+#'    \item 76 reservoir inflow
+#'    \item 25 water temp
+#'    \item 4  air temp
+#'    }
 #'
-#' 1  stage (ft)
-#' 20 flow (cfs)
-#' 2  rain accum (in)
-#' 16 precip tippingbucket (in)
-#' 45 ppt incremental (in)
-#' 3  snow water content (in)
-#' 18 snow depth (in)
-#' 6  reservoir elevation (ft)
-#' 15 reservoir storage (ac-ft)
-#' 76 reservoir inflow
-#' 25 water temp
-#' 4  air temp
+#'#' @seealso
+#' - To see a list of Real-Time Stations: \url{http://cdec.water.ca.gov/misc/realStations.html}
+#' - To see a list of Daily Stations: \url{http://cdec.water.ca.gov/misc/dailyStations.html}
+#' - To see a list of sensors:  \url{http://cdec.water.ca.gov/misc/senslist.html}
 #'
-#' @param station # Station is 3 letter abbreviation (see https://info.water.ca.gov/staMeta.html)
-#' @param sensor # sensor is number, see below
-#' @param duration # Duration is E=event, D=Daily, H=Hourly
-#' @param start # "YYYY-MM-DD"
-#' @param end # "YYYY-MM-DD"
+#' @param station # Station is 3 letter abbreviation (see \url{https://info.water.ca.gov/staMeta.html})
+#' @param sensor # Sensor is number.
+#' @param duration # Duration is E=event, D=Daily, H=Hourly.
+#' @param start # A start date formatted as "YYYY-MM-DD".
+#' @param end # A end date formatted as "YYYY-MM-DD".
+#' @return Will return a dataframe with station ID and associated sensor data.
+#' @examples
+#' # set up the parameters to use in function:
+#' sens <- c(20)
+#' startT <- c("2018-12-01")
+#' endT <- c("2019-03-01")
+#' stations <- c("CLW", "MLW", "TIS")
+#' dur  <- c("H") # hourly here, try this with "H" "D" or "E"
+#' # combine into one argument list (note, order matches function order)
+#' varList <- list(stations, sens, dur, startT, endT)
+#' # now run function:
+#' # use PURRR package to map each argument in parallel, then combine
+#' cdec_hrly <- pmap(varList, get_cdec) %>% bind_rows()
+#' # check records by station
+#' table(cdec_hrly$station_id)
+#' # check date range
+#' cdec_hrly %>%
+#'   group_by(station_id) %>%
+#'   summarize(mx=max(datetime), mn=min(datetime))
+#' # Format to Daily Data (requires dplyr)
+#' cdec <- cdec_hrly %>%
+#'   mutate(date = as.Date(datetime)) %>%
+#'   group_by(station_id, date) %>%
+#'   summarize("daily_cfs" = mean(value, na.rm = T)) %>%
+#'   filter(!is.na(daily_cfs))
 #' @export
 get_cdec <- function(
   station,
@@ -62,29 +91,6 @@ get_cdec <- function(
     cat(paste0("No data available for Station ", cdec, " for this daterange or interval! \n\n"))
   }
 }
-
-# SET VARS ----------------------------------------------------------------
-
-# need lists for everything, must match order of arguments in function
-# sens <- c(20)
-# startT <- c("2013-02-01")
-# endT <- c("2018-05-01")
-# stations <- c("CLW", "MLW", "TIS")
-# dur  <- c("H") # try this with "H" "D" or "E" and it should work
-#
-# # combine into one argument list (note, order matches function order)
-# varList <- list(stations, sens, dur, startT, endT)
-
-# GET DATA ----------------------------------------------------------------
-
-# use PURRR package to map each argument in parallel, then combine
-# cdec_hrly <- pmap(varList, get_cdec) %>% bind_rows()
-
-# check records by station
-# table(cdec_hrly$station_id)
-
-# check date range
-# cdec_hrly %>% group_by(station_id) %>% summarize(mx=max(datetime), mn=min(datetime))
 
 
 # FORMAT TO DAILY ---------------------------------------------------------
