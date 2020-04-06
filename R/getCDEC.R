@@ -1,6 +1,7 @@
 #' Get CDEC Data
 #'
-#' This function takes a \emph{station} and \emph{sensor} along with a \emph{duration} and \emph{start} and \emph{end} date. It returns associated CDEC sensor data in a dataframe.
+#' This function takes a \emph{station} and \emph{sensor} along with a \emph{duration} and \emph{start} and \emph{end} date.
+#' It returns associated CDEC sensor data in a dataframe.
 #'
 #' - To see a list of Real-Time Stations: http://cdec.water.ca.gov/misc/realStations.html
 #' - To see a list of Daily Stations: http://cdec.water.ca.gov/misc/dailyStations.html
@@ -46,8 +47,8 @@ get_cdec <- function(
 
 # Read in and Format ------------------------------------------------------
 
-  df <- readr::read_csv(linkCDEC) %>% select(-`OBS DATE`, -DATA_FLAG) %>%
-    rename(datetime = `DATE TIME`) %>% set_names(tolower(names(.))) %>% data.frame()
+  df <- readr::read_csv(linkCDEC) %>% dplyr::select(-`OBS DATE`, -DATA_FLAG) %>%
+    rename(datetime = `DATE TIME`) %>% purrr::set_names(tolower(names(.))) %>% data.frame()
 
   # coerce to numeric for value col, create NAs for missing values, sometimes listed as "---"
   df$value <- suppressWarnings(as.numeric(df$value))
