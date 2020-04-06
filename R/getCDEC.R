@@ -76,8 +76,11 @@ get_cdec <- function(
 
 # Read in and Format ------------------------------------------------------
 
-  df <- readr::read_csv(linkCDEC) %>% dplyr::select(-`OBS DATE`, -DATA_FLAG) %>%
-    rename(datetime = `DATE TIME`) %>% purrr::set_names(tolower(names(.))) %>% data.frame()
+  df <- readr::read_csv(linkCDEC) %>%
+    dplyr::select(-`OBS DATE`, -DATA_FLAG) %>%
+    dplyr::rename(datetime = `DATE TIME`) %>%
+    purrr::set_names(tolower(names(.))) %>%
+    data.frame()
 
   # coerce to numeric for value col, create NAs for missing values, sometimes listed as "---"
   df$value <- suppressWarnings(as.numeric(df$value))
