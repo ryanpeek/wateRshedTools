@@ -7,15 +7,15 @@
 get_cdec(station, sensor, duration, start, end)
 }
 \arguments{
-\item{station}{# Station is 3 letter abbreviation (see \url{https://info.water.ca.gov/staMeta.html})}
+\item{station}{Station is 3 letter abbreviation (see \url{https://info.water.ca.gov/staMeta.html})}
 
-\item{sensor}{# Sensor is number.}
+\item{sensor}{Sensor is number.}
 
-\item{duration}{# Duration is E=event, D=Daily, H=Hourly.}
+\item{duration}{Duration is E=event, D=Daily, H=Hourly.}
 
-\item{start}{# A start date formatted as "YYYY-MM-DD".}
+\item{start}{A start date formatted as "YYYY-MM-DD".}
 
-\item{end}{# A end date formatted as "YYYY-MM-DD".}
+\item{end}{A end date formatted as "YYYY-MM-DD".}
 }
 \value{
 Will return a dataframe with station ID and associated sensor data.
@@ -47,7 +47,7 @@ Commonly used sensors include:
 \examples{
 # set up the parameters to use in function:
 sens <- c(20)
-startT <- c("2018-12-01")
+startT <- c("2013-12-01")
 endT <- c("2019-03-01")
 stations <- c("CLW", "MLW", "TIS")
 dur  <- c("H") # hourly here, try this with "H" "D" or "E"
@@ -69,6 +69,58 @@ cdec <- cdec_hrly \%>\%
   group_by(station_id, date) \%>\%
   summarize("daily_cfs" = mean(value, na.rm = T)) \%>\%
   filter(!is.na(daily_cfs))
+# here we can add Water Year and plot
+  library(lubridate)
+  cdec <- cdec \%>\%
+  add_WYD("date") \%>\%
+  mutate(month = lubridate::month(date),
+      mday = lubridate::mday(date),
+      md = format(date, "\%m/\%d"))
+# now make datasets for each overtopping weir
+# Tisdale overtops at 45.45 feet:
+tis<- cdec \%>\%
+  filter(station_id == "TIS") \%>\%
+  mutate(WY_rev = as.numeric(as.character(WY))+.3)
+# Colusa Weir overtopping
+col<- cdec \%>\%
+  filter(station_id == "CLW") \%>\%
+  mutate(WY_rev = as.numeric(as.character(WY))+.6)
+# Moulton Weir overtopping
+mol<- cdec \%>\%
+  filter(station_id == "MLW") \%>\%
+  mutate(WY_rev = as.numeric(as.character(WY))+.9)
+# now plot!
+library(ggplot2)
+ggplot() +
+  geom_point(data=tis, aes(x=DOWY, y=WY_rev, shape=station_id,
+                       color=station_id), size=2.5, alpha=0.9) +
+  geom_point(data=col, aes(x=DOWY, y=WY_rev, shape=station_id,
+                       color=station_id), size=2, alpha=0.9) +
+  geom_point(data=mol, aes(x=DOWY, y=WY_rev,
+                       shape=station_id, color=station_id), size=1, alpha=0.9) +
+  theme_bw(base_size = 10) +
+  scale_shape_manual("Station", values = c(16,17,15))+
+  labs(x= "", y= "Water Year") +
+  scale_color_viridis_d("Station", direction = -1, option = "D") +
+  scale_y_continuous(breaks= seq(2012.5, 2020.5, 1), labels=c(seq(2012, 2020, 1))) +
+  scale_x_continuous(breaks = seq(0, 365, 61),
+                     labels = c("Oct", "Dec", "Feb", "Apr", "Jun", "Aug"),
+                     limits = c(0, 340)) +
+  theme(plot.title = element_text(hjust = 0.5),
+        legend.position = c(0.9, 0.7))
+# single plot:
+(tis.plot<-ggplot() +
+   geom_tile(data=tis, aes(x=DOWY, y=WY,
+                           fill=station_id), show.legend = F) +
+   labs(x= "", y= "Water Year", title = "Tisdale Overtopping") +
+   scale_fill_viridis_d("Station", direction = -1, option = "C") +
+   scale_y_continuous(breaks= seq(2012.5, 2020.5, 1), labels=c(seq(2012, 2020, 1))) +
+   scale_x_continuous(breaks = seq(0, 365, 61),
+                      labels = c("Oct", "Dec", "Feb",
+                                 "Apr", "Jun", "Aug"),
+                      limits = c(0, 340)) +
+   theme(plot.title = element_text(hjust = 0.5)) +
+   coord_cartesian(expand = F))
 }
 \seealso{
 \itemize{

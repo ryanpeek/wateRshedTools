@@ -20,6 +20,7 @@ Imports:
     lubridate,
     magrittr,
     purrr,
+    ggplot2,
     readr
 Depends:
     R (>= 3.6.0)
