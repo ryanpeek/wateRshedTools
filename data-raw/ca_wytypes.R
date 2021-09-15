@@ -4,31 +4,63 @@
 # usethis::use_data_raw()
 
 # GET PACKAGE
-# devtools::install_git("https://git.sr.ht/~hrbrmstr/reapr")
-library(reapr)
-library(tidyverse, warn.conflicts = FALSE)
-library(usethis)
+library(rvest)
+library(readr)
+library(tidyr)
+library(dplyr)
 
-# get data
-x <- reap_url("http://cdec.water.ca.gov/reportapp/javareports?name=WSIHIST")
+# get html table
+data <- rvest::read_html("http://cdec.water.ca.gov/reportapp/javareports?name=WSIHIST") %>%
+  html_element(xpath = '//*[@id="main_content"]/pre/text()')
 
-# pull out data
-wydat <- read_delim(as.data.frame(x$tag$pre)$elem_content, skip=20, delim=" ", col_names = F, n_max=112)
+# now read just the first table and skip rows
+wy_df1 <- data %>%
+  html_text() %>%
+  readr::read_tsv(skip = 20,
+                  col_names = FALSE) %>%
+  # fix extra spaces
+  mutate(X2 = gsub("\\s+", " ", x=X1))
 
-# add appropriate col names for each watershed
-wydat_sac <- wydat %>%
-  select(1:6) %>%
-  set_names(c("WY","Oct_Mar", "Apr_Jul", "WYsum","Index", "WYtype")) %>%
-  mutate(watershed = "Sacramento Valley")
+# now format and fix
+wy_df_final <- wy_df1 %>%
+  separate(X2,
+           into=c("WY",
+                  "sv_Oct_Mar", "sv_Apr_Jul", "sv_WYsum","sv_Index", "sv_WYtype",
+                  "sj_Oct_Mar", "sj_Apr_Jul", "sj_WYsum","sj_Index", "sj_WYtype"),
+           sep = " ", extra = "drop") %>%
+  # drop orig cols and pull just 1906:current year
+  select(-X1) %>%
+  slice(1:(lubridate::year(Sys.Date())-1906)) %>%
+  mutate(across(-c(contains("WYType")), as.numeric))
 
-wydat_sj <- wydat %>%
-  select(1, 7:11) %>%
-  set_names(c("WY","Oct_Mar", "Apr_Jul", "WYsum","Index", "WYtype")) %>%
-  mutate(watershed = "San Joaquin Valley")
+# get the 8-station index
+wy_df2 <- data %>%
+  html_text() %>%
+  readr::read_tsv(skip = 153,
+                  col_names = FALSE) %>%
+  # fix extra spaces
+  mutate(X2 = gsub("\\s+", " ", x=X1))
 
-# now bind together and save
-ca_wytypes <- bind_rows(wydat_sac, wydat_sj)
+# now format and fix
+wy_df_final2 <- wy_df2 %>%
+  separate(X2,
+           into=c("WY", "Dec", "Jan", "Feb", "Mar", "Apr", "May"),
+           sep = " ", extra = "drop") %>%
+  # drop orig cols and pull just 1906:current year
+  select(-X1) %>%
+  slice(1:(lubridate::year(Sys.Date())-1906)) %>%
+  mutate(across(-c(contains("WYType")), as.numeric))
+
+# 8-riv_runoff
+riv8_runoff <- wy_df_final2
+
+# ca_wytypes
+ca_wytypes <- wy_df_final
 
 # now save!
 write_csv(ca_wytypes, "data-raw/ca_wytypes.csv")
+write_csv(riv8_runoff, "data-raw/riv8_runoff.csv")
+
+# export
+usethis::use_data(riv8_runoff, overwrite = TRUE)
 usethis::use_data(ca_wytypes, overwrite = TRUE)

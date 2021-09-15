@@ -46,6 +46,8 @@ Commonly used sensors include:
 }
 \examples{
 # set up the parameters to use in function:
+library(dplyr)
+library(purrr)
 sens <- c(20)
 startT <- c("2013-12-01")
 endT <- c("2019-03-01")
@@ -54,7 +56,6 @@ dur  <- c("H") # hourly here, try this with "H" "D" or "E"
 # combine into one argument list (note, order matches function order)
 varList <- list(stations, sens, dur, startT, endT)
 # now run function:
-# library(dplyr); library(purrr); library(magrittr)
 # now map each argument in parallel, then combine
 cdec_hrly <- pmap(varList, get_cdec) \%>\% bind_rows()
 # check records by station
@@ -67,7 +68,7 @@ cdec_hrly \%>\%
 cdec <- cdec_hrly \%>\%
   mutate(date = as.Date(datetime)) \%>\%
   group_by(station_id, date) \%>\%
-  summarize("daily_cfs" = mean(value, na.rm = T)) \%>\%
+  summarize("daily_cfs" = mean(value, na.rm = TRUE)) \%>\%
   filter(!is.na(daily_cfs))
 # here we can add Water Year and plot
   library(lubridate)
@@ -111,7 +112,7 @@ ggplot() +
 # single plot:
 (tis.plot<-ggplot() +
    geom_tile(data=tis, aes(x=DOWY, y=WY,
-                           fill=station_id), show.legend = F) +
+                           fill=station_id), show.legend = FALSE) +
    labs(x= "", y= "Water Year", title = "Tisdale Overtopping") +
    scale_fill_viridis_d("Station", direction = -1, option = "C") +
    scale_y_continuous(breaks= seq(2012.5, 2020.5, 1), labels=c(seq(2012, 2020, 1))) +
@@ -120,7 +121,7 @@ ggplot() +
                                  "Apr", "Jun", "Aug"),
                       limits = c(0, 340)) +
    theme(plot.title = element_text(hjust = 0.5)) +
-   coord_cartesian(expand = F))
+   coord_cartesian(expand = FALSE))
 }
 \seealso{
 \itemize{

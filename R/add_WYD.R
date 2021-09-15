@@ -13,7 +13,7 @@
 #' # get data
 #' airq <- datasets::airquality
 #' # add a year (this data from 1973)
-#' airq$Year <- 1973
+#' airq$year <- 1973
 #' # make a date col
 #' airq$date <- with(airq, paste0(year, "-", Month, "-", Day))
 #' head(airq)

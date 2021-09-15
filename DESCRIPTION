@@ -1,7 +1,7 @@
 Package: wateRshedTools
 Type: Package
 Title: Watershed Tools For Datetime Data
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Ryan", "Peek", email = "rapeek@ucdavis.edu",
   role = c("aut", "cre"))
 Description: This package is largely experimental and has a few useful 
@@ -9,19 +9,23 @@ Description: This package is largely experimental and has a few useful
     year, water year day using a given date or datetime column. 
     Additional functions for converting from CFS to CMS and downloading
     USGS flow data.
-License: MIT + file LICENSE
+License: Apache License (>= 2)
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/ryanpeek/wateRshedTools
 BugReports: https://github.com/ryanpeek/wateRshedTools/issues
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.2
 Imports:
     dplyr,
     lubridate,
     magrittr,
     purrr,
     ggplot2,
-    readr
+    readr,
+    tidyr,
+    rvest,
+    tibble,
+    class
 Depends:
     R (>= 3.6.0)
 Suggests:
