@@ -33,6 +33,7 @@
 #' @param start A start date formatted as "YYYY-MM-DD".
 #' @param end A end date formatted as "YYYY-MM-DD".
 #' @return Will return a dataframe with station ID and associated sensor data.
+#' @importFrom magrittr %>%
 #' @examples
 #' # set up the parameters to use in function:
 #' library(dplyr)
