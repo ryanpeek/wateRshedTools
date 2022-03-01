@@ -4,10 +4,12 @@
 \alias{get_shp_zip}
 \title{Read a zipped shapefile}
 \usage{
-get_shp_zip(shp_url)
+get_shp_zip(shp_url, web = TRUE)
 }
 \arguments{
 \item{shp_url}{A character path to a zipped shapefile, locally or online.}
+
+\item{web}{TRUE/FALSE, is the path a web URL or a local directory path}
 }
 \value{
 Returns an sf data.frame.
