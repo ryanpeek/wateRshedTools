@@ -7,9 +7,9 @@
 add_WYD(df, datecolumn)
 }
 \arguments{
-\item{datecolumn}{quoted, requires a POSIXct formatted date or datetime}
+\item{df}{a dataframe}
 
-\item{dates}{a dataframe}
+\item{datecolumn}{quoted, requires a POSIXct formatted date or datetime}
 }
 \description{
 This function takes a POSIXct formatted column name and
@@ -32,7 +32,7 @@ airq$date <- with(airq, paste0(year, "-", Month, "-", Day))
 head(airq)
 # now format into POSIX with lubridate
 require(lubridate)
-airq$date <- ymd(airq$date)
+airq$date <- lubridate::ymd(airq$date)
 
 # now run function:
 airq <- add_WYD(airq, "date")

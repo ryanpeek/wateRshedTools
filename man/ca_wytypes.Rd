@@ -5,9 +5,23 @@
 \alias{ca_wytypes}
 \title{California Water Year Types.}
 \format{
-A data frame with seven variables: \code{WY}, \code{Oct_Mar},
-  \code{Apr_Jul}, \code{WYsum}, \code{Index}, \code{WYtype}, and
-  \code{watershed}. These are the official Water Types for CA.
+A data frame with seven variables:
+\describe{
+  \item{WY}{the water year}
+  \item{sv_Oct_Mar}{the index for Oct through Mar for sacramento valley}
+  \item{sv_Apr_Jul}{the index for Apr through Jul for sacramento valley}
+  \item{sv_WYsum}{the sum of Oct_Mar + Apr_Jul for sacramento valley}
+  \item{sv_Index}{The indexed water year value for sacramento valley}
+  \item{sv_WYtype}{the water year type (Wet, Above Normal, Below Normal, Dry, Critically Dry for sacramento valley)}
+  \item{sj_Oct_Mar}{the index for Oct through Mar for san joaquin}
+  \item{sj_Apr_Jul}{the index for Apr through Jul for san joaquin}
+  \item{sj_WYsum}{the sum of Oct_Mar + Apr_Jul for san joaquin}
+  \item{sj_Index}{The indexed water year value for san joaquin}
+  \item{sj_WYtype}{the water year type (Wet, Above Normal, Below Normal, Dry, Critically Dry for san joaquin)}
+}
+}
+\source{
+\url{http://cdec.water.ca.gov/reportapp/javareports?name=WSIHIST}
 }
 \usage{
 ca_wytypes

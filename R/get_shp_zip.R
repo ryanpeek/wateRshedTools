@@ -3,10 +3,12 @@
 #'
 #' This function takes a \emph{path} to a given shapefile
 #' from online or local directory, and
-#' returns a \{sf} based data.frame to the R environment.
+#' returns a \emph{sf} based data.frame to the R environment.
 #'
 #' @param shp_url A character path to a zipped shapefile, locally or online.
 #' @return Returns an sf data.frame.
+#' @importFrom utils download.file
+#' @importFrom mapview mapview
 #' @examples
 #' # set up the parameters to use in function:
 #' library(sf)
@@ -16,11 +18,10 @@
 #' # get a shapefile of all USGS gages in North America
 #' shp_url <- "https://water.usgs.gov/GIS/dsdl/gagesII_9322_point_shapefile.zip"
 #'
-#' gages2 <- get_shp_zip(durl)
+#' gages2 <- get_shp_zip(shp_url)
 #'
 #' # now plot
 #' mapview::mapview(gages2)
-
 
 #' @export
 get_shp_zip <- function(shp_url){

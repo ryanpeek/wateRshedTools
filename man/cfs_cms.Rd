@@ -8,6 +8,8 @@ cfs_cms(x, cfs = TRUE)
 }
 \arguments{
 \item{x}{a continuous numeric column}
+
+\item{cfs}{convert to cfs as default, FALSE for cms}
 }
 \description{
 cfs to cms or back
