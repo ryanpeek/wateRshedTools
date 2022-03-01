@@ -5,6 +5,8 @@
 #' Details: As above
 #'
 #' @param x a continuous numeric column
+#' @param na.rm remove the NAs before calculating
+#' @importFrom stats sd
 #' @export
 CV <- function(x, na.rm=TRUE){
   if(na.rm){
@@ -14,29 +16,10 @@ CV <- function(x, na.rm=TRUE){
   }
 }
 
-
-# Function to replace / in path to \\ and copy to clipboard
-#' @export
-repath <- function() {
-  cat('Paste file path and hit RETURN twice')
-  x <- scan(what = "")
-  xa <- gsub('\\\\', '/', x)
-  writeClipboard(paste(xa, collapse=" "))
-  cat('Here\'s your de-windowsified path. (It\'s also on the clipboard.)\n', xa, '\n')
-}
-
-
-# Function to add a pause or break in script or function
-#' @export
-Pause <- function () {
-  cat("Hit <enter> to continue...")
-  readline()
-  invisible()
-}
-
 #' cfs to cms or back
 #'
 #' @param x a continuous numeric column
+#' @param cfs convert to cfs as default, FALSE for cms
 #'
 #' @export
 cfs_cms <- function(x, cfs=TRUE){
@@ -47,45 +30,11 @@ cfs_cms <- function(x, cfs=TRUE){
   }
 }
 
-# make new proj folders
-#' @export
-new.folders<-function(all=TRUE){
-  if(all){
-    dir.create(path="data",showWarnings=T) # create data folder
-    dir.create(path="data_output",showWarnings=T)
-    dir.create(path="docs",showWarnings=T)
-    dir.create(path="output",showWarnings=T)
-    dir.create(path="output/figs",showWarnings=T)
-    dir.create(path="output/models",showWarnings=T)
-    dir.create(path="code",showWarnings=T)
-    dir.create(path="code/functions",showWarnings=T)
-    cat("Folders created: \n
-        \t code
-        \t\t\t code/functions
-        \t data
-        \t data_output
-        \t docs
-        \t output
-        \t\t\t output/figs
-        \t\t\t output/models")
-  } else {
-    dir.create(path="code",showWarnings=T)
-    dir.create(path="data",showWarnings=T) # create data folder
-    dir.create(path="data_output",showWarnings=T)
-    dir.create(path="docs",showWarnings=T)
-    dir.create(path="output",showWarnings=T)
-    cat("Folders created: \n
-        \t code
-        \t data
-        \t data_output
-        \t docs
-        \t output")
-  }
-}
-
 #' list package functions: requires unquoted package name
 #' the package must be first loaded into the envivronment
 #' @param package_name an unquoted package name
+#' @param all.names TRUE/FALSE, include ALL named functions
+#' @param pattern a grep pattern to use in the /ls() function
 #' @export
 ls_pkg_functions <-function(package_name, all.names = FALSE, pattern) {
   package <- deparse(substitute(package_name))

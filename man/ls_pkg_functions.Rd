@@ -9,6 +9,10 @@ ls_pkg_functions(package_name, all.names = FALSE, pattern)
 }
 \arguments{
 \item{package_name}{an unquoted package name}
+
+\item{all.names}{TRUE/FALSE, include ALL named functions}
+
+\item{pattern}{a grep pattern to use in the /ls() function}
 }
 \description{
 list package functions: requires unquoted package name

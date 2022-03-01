@@ -14,7 +14,7 @@ dowy<-function(YYYYMMDD_HMS) {   # Dates must be POSIXct
   doy<-lubridate::yday(YYYYMMDD_HMS)
 
   # make DOWY
-  offsetday = ifelse(month(YYYYMMDD_HMS) > 9, -273, 92)
+  offsetday = ifelse(lubridate::month(YYYYMMDD_HMS) > 9, -273, 92)
   DOWY = doy + offsetday
 
   # adjust for leap year

@@ -8,6 +8,8 @@ CV(x, na.rm = TRUE)
 }
 \arguments{
 \item{x}{a continuous numeric column}
+
+\item{na.rm}{remove the NAs before calculating}
 }
 \description{
 A suite of functions that may or may not be useful.

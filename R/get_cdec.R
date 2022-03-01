@@ -34,6 +34,8 @@
 #' @param end A end date formatted as "YYYY-MM-DD".
 #' @return Will return a dataframe with station ID and associated sensor data.
 #' @importFrom magrittr %>%
+#' @importFrom janitor clean_names
+#' @importFrom rlang .data
 #' @examples
 #' # set up the parameters to use in function:
 #' library(dplyr)
@@ -130,10 +132,11 @@ get_cdec <- function(
 
 # Read in and Format ------------------------------------------------------
 
+  # implement and download data
   df <- readr::read_csv(linkCDEC) %>%
-    dplyr::select(-`OBS DATE`, -DATA_FLAG) %>%
-    dplyr::rename(datetime = `DATE TIME`) %>%
-    purrr::set_names(tolower(names(.))) %>%
+    janitor::clean_names() %>%
+    dplyr::select(-c(.data$obs_date, .data$data_flag)) %>%
+    dplyr::rename(datetime = .data$date_time) %>%
     data.frame()
 
   # coerce to numeric for value col, create NAs for missing values, sometimes listed as "---"

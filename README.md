@@ -20,4 +20,6 @@ OR with the `remotes` package:
 
 ### Loading/Running
 
+`devtools::check(".")`
 `devtools::document(".")`
+
