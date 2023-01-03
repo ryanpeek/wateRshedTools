@@ -11,8 +11,8 @@ library(dplyr)
 
 # get html table
 data <- rvest::read_html("http://cdec.water.ca.gov/reportapp/javareports?name=WSIHIST") %>%
-  html_element(xpath = '//*[@id="main_content"]/pre/text()')
-
+  html_element(xpath = '//*[@id="main-content"]/div/div[2]/main/section/pre/text()')
+# //*[@id="main-content"]/div/div[2]/main/section/pre/text()
 # now read just the first table and skip rows
 wy_df1 <- data %>%
   html_text() %>%
@@ -51,11 +51,13 @@ wy_df_final2 <- wy_df2 %>%
   slice(1:(lubridate::year(Sys.Date())-1906)) %>%
   mutate(across(-c(contains("WYType")), as.numeric))
 
-# 8-riv_runoff
-riv8_runoff <- wy_df_final2
+# 8-riv_runoff, drop na
+riv8_runoff <- wy_df_final2 %>%
+  filter(!is.na(WY))
 
 # ca_wytypes
-ca_wytypes <- wy_df_final
+ca_wytypes <- wy_df_final %>%
+  filter(!is.na(WY))
 
 # now save!
 write_csv(ca_wytypes, "data-raw/ca_wytypes.csv")
